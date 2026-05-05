@@ -53,6 +53,12 @@ dev = [
 [project.scripts]
 jobspy-mcp-server = "jobspy_mcp_server:main"
 
+# Hatchling refuses PEP 508 direct-reference deps (git+URL) by default
+# as a security policy. We need them — see the python-jobspy @ git+...
+# entry in [project.dependencies] above — so opt in explicitly.
+[tool.hatch.metadata]
+allow-direct-references = true
+
 [tool.black]
 line-length = 88
 target-version = ['py310']
