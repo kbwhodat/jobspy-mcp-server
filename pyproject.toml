@@ -37,7 +37,7 @@ dependencies = [
     # Upstream's "jobspy>=" was a typo — the package on PyPI is
     # "python-jobspy" — and that PyPI release has all five sources
     # broken anyway, so the git URL form is the right fix.
-    "python-jobspy @ git+https://github.com/kbwhodat/JobSpy.git@main",
+    "python-jobspy @ git+https://github.com/kbwhodat/JobSpy.git@0ebd47db2b263f41e070a0f5e72687de527440df",
     "pandas>=2.1.0",
     "pydantic>=2.0.0",
 ]
