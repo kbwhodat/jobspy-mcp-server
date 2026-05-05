@@ -372,12 +372,28 @@ Happy job hunting! 🚀"""
 
 # Entry point for running the server
 def main():
-    """Run the JobSpy MCP server."""
+    """Run the JobSpy MCP server.
+
+    Default transport is stdio (single-client subprocess mode used by most
+    MCP clients). Set JOBSPY_TRANSPORT=sse to run as a long-lived HTTP/SSE
+    server suitable for a launchd / systemd daemon — host and port are
+    configurable via JOBSPY_HOST (default 127.0.0.1) and JOBSPY_PORT
+    (default 9090).
+    """
+    import os
+
     logger.info("Starting JobSpy MCP Server...")
     logger.info("Server is ready and waiting for MCP client connections...")
     logger.info("Use Ctrl+C to stop the server")
     try:
-        mcp.run(transport="stdio")
+        transport = os.environ.get("JOBSPY_TRANSPORT", "stdio")
+        logger.info(f"Using transport: {transport}")
+        if transport == "sse":
+            mcp.settings.host = os.environ.get("JOBSPY_HOST", "127.0.0.1")
+            mcp.settings.port = int(os.environ.get("JOBSPY_PORT", "9090"))
+            mcp.run(transport="sse")
+        else:
+            mcp.run(transport="stdio")
     except KeyboardInterrupt:
         logger.info("Server stopped by user")
     except Exception as e:

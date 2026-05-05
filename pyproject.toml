@@ -24,7 +24,20 @@ requires-python = ">=3.10"
 dependencies = [
     "fastmcp>=0.2.0",
     "mcp>=1.1.0",
-    "jobspy>=1.1.82",
+    # Use the kbwhodat/JobSpy fork directly. Fork fixes:
+    #  - Indeed: GraphQL radius now Int! (fork provides default 25)
+    #  - Glassdoor: URL-encode location, tolerate partial GraphQL errors,
+    #    rewrite via selenium-driverless to bypass Cloudflare 403
+    #  - Google: replace dead HTTP scraper with selenium-driverless
+    #    headless (handles Google's JS-only Jobs gate)
+    #  - ZipRecruiter: rewrite to curl_cffi safari17_2_ios web endpoint
+    #    (the iOS-app API is dead behind Cloudflare)
+    #  - LinkedIn: salary extraction from description body, per-company
+    #    cap, parallel detail fetches
+    # Upstream's "jobspy>=" was a typo — the package on PyPI is
+    # "python-jobspy" — and that PyPI release has all five sources
+    # broken anyway, so the git URL form is the right fix.
+    "python-jobspy @ git+https://github.com/kbwhodat/JobSpy.git@main",
     "pandas>=2.1.0",
     "pydantic>=2.0.0",
 ]
