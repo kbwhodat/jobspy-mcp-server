@@ -72,7 +72,7 @@ async def scrape_jobs_tool(
         await ctx.info(f"Searching for '{search_term}' jobs...")
         
         # Validate site names
-        valid_sites = ["linkedin", "indeed", "glassdoor", "zip_recruiter", "google", "bayt", "naukri", "bdjobs", "usajobs", "adzuna", "jooble", "findwork", "the_muse", "insight_global", "clearance_jobs", "kforce", "greenhouse", "collab_work"]
+        valid_sites = ["linkedin", "indeed", "glassdoor", "zip_recruiter", "google", "bayt", "naukri", "bdjobs", "usajobs", "adzuna", "jooble", "findwork", "the_muse", "insight_global", "clearance_jobs", "kforce", "greenhouse", "collab_work", "wellfound", "hiring_cafe"]
         invalid_sites = [site for site in site_name if site not in valid_sites]
         if invalid_sites:
             return f"Error: Invalid site names: {invalid_sites}. Valid sites: {valid_sites}"
